@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% if form.errors %}
+        {% for error in form.errors %}
+            {{ error }}
+        {% endfor %}
+    {% endif %}
+    <h1>Register page</h1>
+    <p>Fill in your information below to create an account.</p>
+    <form action="{% url 'auth:register' %}" method="POST"> {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+{% endblock %}
