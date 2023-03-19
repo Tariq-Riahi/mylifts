@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
-
 from django.contrib.auth import authenticate, login, logout
-
 from django.contrib import messages
-
 from django.contrib.auth.forms import UserCreationForm
+
+from datetime import date
+
+from .forms import RegisterForm
 
 from lifters.models import *
 
@@ -30,22 +31,32 @@ def logout_user(request):
 
 def register_user(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = RegisterForm(request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data['username']
             password = form.cleaned_data['password1']
             user = authenticate(username=username, password=password)
             login(request, user)
+            init_user(user, form)
             messages.success(request, "Registration was succesful")
-            profile_obj = UserProfile(
-                name = form.cleaned_data['username'],
-                user = user,
-            )
-            profile_obj.save()
             return redirect('home')
     else:
-        form = UserCreationForm()
+        form = RegisterForm()
     return render(request, 'register.html', {
         'form': form,
     })
+
+def init_user(user, form):
+    # Create a UserProfile
+    age = calculate_age(form.cleaned_data["date_of_birth"])
+    profile_obj = UserProfile(
+        name=form.cleaned_data['username'],
+        user=user,
+        age = age
+    )
+    profile_obj.save()
+
+def calculate_age(born):
+    today = date.today()
+    return today.year - born.year - ((today.month, today.day) < (born.month, born.day))

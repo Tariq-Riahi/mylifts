@@ -1,0 +1,11 @@
+<nav>
+    navbar
+    {% if request.user.is_authenticated %}
+        <a href="{% url 'home' %}">Home</a>
+        Hello <a href="{% url 'profile:details' profile_user_id=request.user.id %}">{{ request.user }}</a>
+        <a href="{% url 'auth:logout' %}">Logout</a>
+    {% else %}
+        <a href="{% url 'auth:login' %}">Login</a>
+        <a href="{% url 'auth:register' %}">Register</a>
+    {% endif %}
+</nav>

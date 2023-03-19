@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{ profile.name }}</h1>
+    <h2>{{ profile.age }}
+        {% if profile.height %}
+            / {{ profile.height }}
+        {% endif %}
+        {% if profile.weight %}
+            / {{ profile.weight }}
+        {% endif %}</h2>
+    <br>
+        {{ profile.bio }}
+        </br>
+        <ul>
+            {% if profile.tiktok_url %}
+                            <li><a href="{{ profile.tiktok_url }}">TikTok</a></li>
+            {% endif %}
+            {% if profile.profile.instagram_url %}
+                            <li><a href="{{ profile.profile.instagram_url }}">Instagram</a></li>
+            {% endif %}
+            {% if profile.youtube_url %}
+                            <li><a href="{{ profile.youtube_url }}">Youtube</a></li>
+            {% endif %}
+        </ul>
+    </p>
+    <p>
+        <ul>
+            <div class="card" style="width: 22rem;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ personal_record.benchpress.lift_name }} - {{personal_record.benchpress.weight_lifted }} {{ unit }}
+                    {% if personal_record.benchpress.body_weight %}
+                            @ {{ personal_record.benchpress.body_weight }} {{ unit }}
+                    {% endif %}
+                    {% if personal_record.benchpress.date_lifted %}
+                        {{ personal_record.benchpress.date_lifted }}
+                    {% endif %}
+                    </h5>
+                    <p class="card-text">
+                        {% if personal_record.benchpress.description %}
+                            {{ personal_record.benchpress.description }}
+                        {% endif %}
+                    </p>
+
+                    <a href="#" class="btn btn-primary">Edit</a>
+                </div>
+            </div>
+        </ul>
+    </p>
+{% endblock %}

@@ -25,6 +25,7 @@ urlpatterns = [
     path('users/', lifters_views.user_list, name='user_list'),
     path('', pages_views.home_view, name='home'),
     path('', include('authentication.urls', namespace='auth')),
+    path('profile/', include('lifters.urls', namespace='profile')),
 
     # API endpoints
     path('all-users/', API_views.UserList.as_view()),
