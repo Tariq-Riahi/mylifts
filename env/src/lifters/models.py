@@ -22,7 +22,4 @@ class UserProfile(models.Model):
 class PersonalRecord(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     benchpress = models.ForeignKey(Record, null=True, on_delete=models.SET_NULL)
-    # lift_name = models.CharField(max_length=100)
-    # weight_lifted = models.DecimalField(max_digits=5, decimal_places=2)
-    # date_lifted = models.DateField()
-    # video_url = models.URLField(blank=True, null=True)
+    

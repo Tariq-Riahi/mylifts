@@ -24,6 +24,29 @@
             {% endif %}
         </ul>
     </p>
+    {% if own_profile %}
+        <a href="{% url 'record:add' %}">Add a record</a>
+    {% endif %}
+
+    <table>
+        <tr>
+            <th>Lift</th>
+            <th>Weight</th>
+            <th>Repetitions</th>
+            <th>Body Weight</th>
+            <th>Date</th>
+        </tr>
+        {% for record in records %}
+        <tr>
+            <td>{{ record.lift_name }}</td>
+            <td>{{ record.weight_lifted }}</td>
+            <td>{{ record.repetitions }}</td>
+            <td>{{ record.body_weight }}</td>
+            <td>{{ record.date_lifted }}</td>
+        </tr>
+        {% endfor %}
+
+    </table>
     <p>
         <ul>
             <div class="card" style="width: 22rem;">

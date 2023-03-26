@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 
 from .models import *
+from records.models import Record
 
 
 def user_list(request):
@@ -13,6 +14,7 @@ def profile_detail_view(request, profile_user_id):
     own_profile = profile_user == request.user
 
     personal_record = get_object_or_404(PersonalRecord, user=profile_user)
+    records = Record.objects.filter(user=profile_user)
 
     unit = "lbs"
     if get_object_or_404(UserProfile, user=request.user).metric:
@@ -22,6 +24,7 @@ def profile_detail_view(request, profile_user_id):
         "profile": profile,
         "own_profile": own_profile,
         "personal_record": personal_record,
+        "records": records,
         "unit": unit,
     }
     
