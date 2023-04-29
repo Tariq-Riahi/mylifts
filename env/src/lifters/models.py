@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 from records.models import Record
 
@@ -17,6 +18,9 @@ class UserProfile(models.Model):
     instagram_url = models.CharField(max_length=255, null=True, blank=True)
     youtube_url = models.URLField(max_length=255, blank=True, null=True)
     metric = models.BooleanField()
+
+    def get_absolute_url(self):
+        return reverse('profile:details', args=[self.user.id])
 
 
 class PersonalRecord(models.Model):

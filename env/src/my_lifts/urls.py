@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', lifters_views.user_list, name='user_list'),
     path('', pages_views.home_view, name='home'),
+    path('search/', pages_views.search_view.as_view(), name='search'),
     path('', include('authentication.urls', namespace='auth')),
     path('profile/', include('lifters.urls', namespace='profile')),
     path('records/', include('records.urls', namespace='record')),
