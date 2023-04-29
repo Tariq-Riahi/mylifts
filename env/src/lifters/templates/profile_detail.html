@@ -2,15 +2,15 @@
 
 {% block content %}
     <h1>{{ profile.name }}</h1>
-    <h2>{{ profile.age }}
-        {% if profile.height %}
-            / {{ profile.height }}
-        {% endif %}
-        {% if profile.weight %}
-            / {{ profile.weight }}
-        {% endif %}</h2>
+    <h2>
+        {% if profile.age %} {{ profile.age }} {% endif %}
+        {% if profile.height %} / {{ profile.height }} {% endif %}
+        {% if profile.weight %} / {{ profile.weight }} {% endif %}
+    </h2>
     <br>
-        {{ profile.bio }}
+        {% if profile.bio %}
+            {{ profile.bio }}
+        {% endif %}
         </br>
         <ul>
             {% if profile.tiktok_url %}
@@ -24,50 +24,109 @@
             {% endif %}
         </ul>
     </p>
+
+<!--Add record-->
     {% if own_profile %}
-        <a href="{% url 'record:add' %}">Add a record</a>
+        <a class="btn btn-success" href="{% url 'record:add' %}">Add a record</a>
     {% endif %}
-
-    <table>
-        <tr>
-            <th>Lift</th>
-            <th>Weight</th>
-            <th>Repetitions</th>
-            <th>Body Weight</th>
-            <th>Date</th>
-        </tr>
-        {% for record in records %}
-        <tr>
-            <td>{{ record.lift_name }}</td>
-            <td>{{ record.weight_lifted }}</td>
-            <td>{{ record.repetitions }}</td>
-            <td>{{ record.body_weight }}</td>
-            <td>{{ record.date_lifted }}</td>
-        </tr>
-        {% endfor %}
-
-    </table>
-    <p>
-        <ul>
-            <div class="card" style="width: 22rem;">
-                <div class="card-body">
-                    <h5 class="card-title">{{ personal_record.benchpress.lift_name }} - {{personal_record.benchpress.weight_lifted }} {{ unit }}
-                    {% if personal_record.benchpress.body_weight %}
-                            @ {{ personal_record.benchpress.body_weight }} {{ unit }}
-                    {% endif %}
-                    {% if personal_record.benchpress.date_lifted %}
-                        {{ personal_record.benchpress.date_lifted }}
-                    {% endif %}
-                    </h5>
-                    <p class="card-text">
-                        {% if personal_record.benchpress.description %}
-                            {{ personal_record.benchpress.description }}
+</br>
+</br>
+<!--Active records-->
+<h3>Active Records</h3>
+{% if latest_records %}
+        <table>
+            <tr>
+                <th>Lift</th>
+                <th>Weight</th>
+                <th>Repetitions</th>
+                <th>Body Weight</th>
+                <th>Date</th>
+            </tr>
+            {% for record in latest_records %}
+                {% if record != None %}
+                    <tr>
+                        <td>{{ record.lift_name }}</td>
+                        <td>{{ record.weight_lifted }}</td>
+                        <td>{{ record.repetitions }}</td>
+                        <td> {% if record.body_weight %} {{ record.body_weight }} {% else %} - {% endif %} </td>
+                        <td>{{ record.date_lifted }}</td>
+                        {% if own_profile %}
+                            <td>
+                                <a href="{% url 'record:edit' record.id %}">Edit</a>
+                            </td>
+                            <td>
+                                <a href="{% url 'record:delete' record.id %}" onclick="return confirm('Are you sure you want to delet this record?')">Delete</a>
+                            </td>
                         {% endif %}
-                    </p>
+                            </tr>
+                        {% endif %}
+            {% endfor %}
+        </table>
+{% endif %}
 
-                    <a href="#" class="btn btn-primary">Edit</a>
-                </div>
-            </div>
-        </ul>
-    </p>
+<!--Lifetime records-->
+<h3>Lifetime Records</h3>
+{% if lifetime_records %}
+        <table>
+            <tr>
+                <th>Lift</th>
+                <th>Weight</th>
+                <th>Repetitions</th>
+                <th>Body Weight</th>
+                <th>Date</th>
+            </tr>
+            {% for record in lifetime_records %}
+                {% if record != None %}
+                    <tr>
+                        <td>{{ record.lift_name }}</td>
+                        <td>{{ record.weight_lifted }}</td>
+                        <td>{{ record.repetitions }}</td>
+                        <td> {% if record.body_weight %} {{ record.body_weight }} {% else %} - {% endif %} </td>
+                        <td>{{ record.date_lifted }}</td>
+                        {% if own_profile %}
+                            <td>
+                                <a href="{% url 'record:edit' record.id %}">Edit</a>
+                            </td>
+                            <td>
+                                <a href="{% url 'record:delete' record.id %}" onclick="return confirm('Are you sure you want to delet this record?')">Delete</a>
+                            </td>
+                        {% endif %}
+                            </tr>
+                        {% endif %}
+            {% endfor %}
+        </table>
+{% endif %}
+
+</br>
+
+<!--table of records-->
+<h3>All records</h3>
+    {% if records %}
+        <table>
+            <tr>
+                <th>Lift</th>
+                <th>Weight</th>
+                <th>Repetitions</th>
+                <th>Body Weight</th>
+                <th>Date</th>
+            </tr>
+            {% for record in records %}
+            <tr>
+                <td>{{ record.lift_name }}</td>
+                <td>{{ record.weight_lifted }}</td>
+                <td>{{ record.repetitions }}</td>
+                <td> {% if record.body_weight %} {{ record.body_weight }} {% else %} - {% endif %} </td>
+                <td>{{ record.date_lifted }}</td>
+                {% if own_profile %}
+                    <td>
+                        <a href="{% url 'record:edit' record.id %}">Edit</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'record:delete' record.id %}" onclick="return confirm('Are you sure you want to delet this record?')">Delete</a>
+                    </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
 {% endblock %}

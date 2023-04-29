@@ -9,6 +9,7 @@ from lifters.models import *
 class RegisterForm(UserCreationForm):
     email = forms.EmailField(required=True)
     date_of_birth = forms.DateField(widget=forms.SelectDateWidget(years=range(datetime.now().year-100, datetime.now().year+1)), initial=datetime.now().today(), required=True)
+    metric = forms.BooleanField()
 
     class Meta:
         model = User

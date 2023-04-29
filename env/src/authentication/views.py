@@ -48,14 +48,22 @@ def register_user(request):
     })
 
 def init_user(user, form):
-    # Create a UserProfile
+    # Create a UserProfile object
     age = calculate_age(form.cleaned_data["date_of_birth"])
+    metric = form.cleaned_data['metric']
     profile_obj = UserProfile(
         name=form.cleaned_data['username'],
         user=user,
-        age = age
+        age = age,
+        metric=metric
     )
     profile_obj.save()
+
+    # Create a PersonalRecord object
+    pr_obj = PersonalRecord(
+        user=user,
+    )
+    pr_obj.save()
 
 def calculate_age(born):
     today = date.today()
