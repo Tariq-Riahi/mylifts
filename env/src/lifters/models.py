@@ -18,8 +18,8 @@ class UserProfile(models.Model):
     instagram_url = models.CharField(max_length=255, null=True, blank=True)
     youtube_url = models.URLField(max_length=255, blank=True, null=True)
     metric = models.BooleanField()
-    following = models.ManyToManyField(
-        "self", blank=True, related_name="followers", symmetrical=False
+    followers = models.ManyToManyField(
+        "self", blank=True, related_name="following", symmetrical=False
     )
 
     def get_absolute_url(self):

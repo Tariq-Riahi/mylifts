@@ -1,7 +1,6 @@
 import datetime
 
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic.detail import DetailView
 
 from .models import *
@@ -37,6 +36,10 @@ class profile_detail_view(DetailView):
         else:
             context['unit'] = "lbs"
 
+        # determine whether the user follows this user
+        # if not context['own_profile']:
+        #     context['follows_user'] = context['own_profile'] in self.object.following
+
         return context
 
 
@@ -66,17 +69,16 @@ def get_latest_records(records):
             res.append(last_record)
     return res
 
-def follow_toggle(request, profile_user_id):
-    profile_user_obj = get_object_or_404(User, id=profile_user_id)
-    profile_obj = get_object_or_404(UserProfile, user=profile_user)
-    current_user_obj = get_object_or_404(UserProfile, user=request.user)
-    following = profile_obj.following.all()
+def follow_toggle(request, profile_id):
+    profile_obj = get_object_or_404(UserProfile, id=profile_id)
+    current_profile_obj = get_object_or_404(UserProfile, user=request.user)
+    followers = profile_obj.followers.all()
 
-    if lifter_obj != current_user_obj:
-        if current_user_obj in following:
-            lifter_obj.following.remove(current_user_obj.user.id)
+    if profile_obj != current_profile_obj:
+        if current_profile_obj in followers:
+            profile_obj.followers.remove(current_profile_obj)
         else:
-            lifter_obj.following.add(current_user_obj.user.id)
+            profile_obj.followers.add(current_profile_obj)
 
-    return HttpResponseRedirect(reverse(profile_detail_view, args=[profile_user_id]))
+    return redirect('profile:details', pk=profile_obj.id)
 
