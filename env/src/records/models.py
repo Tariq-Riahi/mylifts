@@ -7,7 +7,7 @@ from .choices import *
 class Record(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     lift_name = models.CharField(choices=lift_name_choices, max_length=50)
-    weight_lifted = models.DecimalField(max_digits=5, decimal_places=1)
+    weight_lifted = models.FloatField()
     repetitions = models.PositiveIntegerField(blank=False, null=False)
     description = models.TextField(blank=True, null=True)
     body_weight = models.PositiveIntegerField(blank=True, null=True)

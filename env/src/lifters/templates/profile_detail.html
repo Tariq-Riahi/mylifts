@@ -1,132 +1,83 @@
 {% extends 'base.html' %}
 
+{% load mathfilters %}
+
 {% block content %}
-    <h1>{{ profile.name }}</h1>
-    <h2>
-        {% if profile.age %} {{ profile.age }} {% endif %}
-        {% if profile.height %} / {{ profile.height }} {% endif %}
-        {% if profile.weight %} / {{ profile.weight }} {% endif %}
-    </h2>
-    <br>
-        {% if profile.bio %}
-            {{ profile.bio }}
-        {% endif %}
-        </br>
-        <ul>
-            {% if profile.tiktok_url %}
-                            <li><a href="{{ profile.tiktok_url }}">TikTok</a></li>
-            {% endif %}
-            {% if profile.profile.instagram_url %}
-                            <li><a href="{{ profile.profile.instagram_url }}">Instagram</a></li>
-            {% endif %}
-            {% if profile.youtube_url %}
-                            <li><a href="{{ profile.youtube_url }}">Youtube</a></li>
-            {% endif %}
-        </ul>
-    </p>
+<body>
+<h1>{{ object.name }}</h1>
+<h2>{{object.following.count}} Following {{object.followers.count}} Followers</h2>
+{% if request.user.is_auhenticated %}
+    {% if user in author.following.all %}
+        <a href="{% url 'follow_toggle' profile_user_id=profile_user_id  %}" class="btn btn-primary">Unfollow</a>
+    {% else %}
+        <a  href="{% url 'follow_toggle' profile_user_id=profile_user_id  %}" class="btn btn-primary"> Follow </a>
+    {% endif %}
+{% elif not is_own_profile %}
+    <p> please, login to follow </p>
+{% endif %}
+<h2>
+    {% if object.age %} {{ object.age }} {% endif %}
+    {% if object.height %} / {{ object.height }} {% endif %}
+    {% if object.weight %} / {{ object.weight }} {% endif %}
+</h2>
+
+<br>
+{% if object.bio %}
+{{ object.bio }}
+{% endif %}
+</br>
+<ul>
+    {% if object.tiktok_url %}
+    <li><a href="{{ profile.tiktok_url }}">TikTok</a></li>
+    {% endif %}
+    {% if object.instagram_url %}
+    <li><a href="{{ profile.profile.instagram_url }}">Instagram</a></li>
+    {% endif %}
+    {% if object.youtube_url %}
+    <li><a href="{{ profile.youtube_url }}">Youtube</a></li>
+    {% endif %}
+</ul>
+</p>
 
 <!--Add record-->
-    {% if own_profile %}
-        <a class="btn btn-success" href="{% url 'record:add' %}">Add a record</a>
-    {% endif %}
-</br>
-</br>
-<!--Active records-->
-<h3>Active Records</h3>
-{% if latest_records %}
-        <table>
-            <tr>
-                <th>Lift</th>
-                <th>Weight</th>
-                <th>Repetitions</th>
-                <th>Body Weight</th>
-                <th>Date</th>
-            </tr>
-            {% for record in latest_records %}
-                {% if record != None %}
-                    <tr>
-                        <td>{{ record.lift_name }}</td>
-                        <td>{{ record.weight_lifted }}</td>
-                        <td>{{ record.repetitions }}</td>
-                        <td> {% if record.body_weight %} {{ record.body_weight }} {% else %} - {% endif %} </td>
-                        <td>{{ record.date_lifted }}</td>
-                        {% if own_profile %}
-                            <td>
-                                <a href="{% url 'record:edit' record.id %}">Edit</a>
-                            </td>
-                            <td>
-                                <a href="{% url 'record:delete' record.id %}" onclick="return confirm('Are you sure you want to delet this record?')">Delete</a>
-                            </td>
-                        {% endif %}
-                            </tr>
-                        {% endif %}
-            {% endfor %}
-        </table>
+{% if is_own_profile %}
+<a class="btn btn-success" href="{% url 'record:add' %}">Add a record</a>
 {% endif %}
-
-<!--Lifetime records-->
-<h3>Lifetime Records</h3>
-{% if lifetime_records %}
-        <table>
-            <tr>
-                <th>Lift</th>
-                <th>Weight</th>
-                <th>Repetitions</th>
-                <th>Body Weight</th>
-                <th>Date</th>
-            </tr>
-            {% for record in lifetime_records %}
-                {% if record != None %}
-                    <tr>
-                        <td>{{ record.lift_name }}</td>
-                        <td>{{ record.weight_lifted }}</td>
-                        <td>{{ record.repetitions }}</td>
-                        <td> {% if record.body_weight %} {{ record.body_weight }} {% else %} - {% endif %} </td>
-                        <td>{{ record.date_lifted }}</td>
-                        {% if own_profile %}
-                            <td>
-                                <a href="{% url 'record:edit' record.id %}">Edit</a>
-                            </td>
-                            <td>
-                                <a href="{% url 'record:delete' record.id %}" onclick="return confirm('Are you sure you want to delet this record?')">Delete</a>
-                            </td>
-                        {% endif %}
-                            </tr>
-                        {% endif %}
-            {% endfor %}
-        </table>
-{% endif %}
-
+</br>
 </br>
 
 <!--table of records-->
 <h3>All records</h3>
-    {% if records %}
-        <table>
-            <tr>
-                <th>Lift</th>
-                <th>Weight</th>
-                <th>Repetitions</th>
-                <th>Body Weight</th>
-                <th>Date</th>
-            </tr>
-            {% for record in records %}
-            <tr>
-                <td>{{ record.lift_name }}</td>
-                <td>{{ record.weight_lifted }}</td>
-                <td>{{ record.repetitions }}</td>
-                <td> {% if record.body_weight %} {{ record.body_weight }} {% else %} - {% endif %} </td>
-                <td>{{ record.date_lifted }}</td>
-                {% if own_profile %}
-                    <td>
-                        <a href="{% url 'record:edit' record.id %}">Edit</a>
-                    </td>
-                    <td>
-                        <a href="{% url 'record:delete' record.id %}" onclick="return confirm('Are you sure you want to delet this record?')">Delete</a>
-                    </td>
-                {% endif %}
-            </tr>
-            {% endfor %}
-        </table>
-    {% endif %}
+{% if records %}
+<table>
+    <tr>
+        <th>Lift</th>
+        <th>Weight</th>
+        <th>Repetitions</th>
+        <th>Body Weight</th>
+        <th>Date</th>
+    </tr>
+    {% for record in records %}
+    <tr>
+        <td>{{ record.lift_name }}</td>
+        <td>{% if own_profile.metric %} {{record.weight_lifted|div:2.205|floatformat:1 }} {% else %}
+            {{record.weight_lifted}} {% endif %}
+        </td>
+        <td>{{ record.repetitions }}</td>
+        <td> {% if record.body_weight %} {{ record.body_weight }} {% else %} - {% endif %}</td>
+        <td>{{ record.date_lifted }}</td>
+        {% if is_own_profile %}
+        <td>
+            <a href="{% url 'record:edit' record.id %}">Edit</a>
+        </td>
+        <td>
+            <a href="{% url 'record:delete' record.id %}"
+               onclick="return confirm('Are you sure you want to delet this record?')">Delete</a>
+        </td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+</body>
 {% endblock %}

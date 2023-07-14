@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'notifications',
     'pages',
     'records',
+    'mathfilters',
 ]
 
 MIDDLEWARE = [
@@ -72,6 +73,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'my_lifts.context_processors.load_global_vars',
             ],
         },
     },

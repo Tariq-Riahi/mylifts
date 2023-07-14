@@ -1,6 +1,8 @@
 import datetime
 
 from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponseRedirect
+from django.views.generic.detail import DetailView
 
 from .models import *
 from records.models import Record
@@ -11,39 +13,32 @@ def user_list(request):
     users = UserProfile.objects.all()
     return render(request, 'user_list.html', {'users': users})
 
-def profile_detail_view(request, profile_user_id):
-    # get profile objects
-    profile_user = get_object_or_404(User, id=profile_user_id)
-    profile = get_object_or_404(UserProfile, user=profile_user)
-    own_profile = profile_user == request.user
+class profile_detail_view(DetailView):
+    model = UserProfile
 
-    # get records
-    personal_record = get_object_or_404(PersonalRecord, user=profile_user)
-    records = Record.objects.filter(user=profile_user)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['is_own_profile'] = self.object.user == self.request.user
+        context['own_profile'] = get_object_or_404(UserProfile, user=self.request.user)
 
-    # get lifetime records
-    lifetime_records = get_top_records(records)
+        # get records
+        context['personal_record'] = get_object_or_404(PersonalRecord, user=self.object.user)
+        context['records'] = Record.objects.filter(user=self.object.user)
 
-    # get latest records
-    latest_records = get_latest_records(records)
+        # get lifetime records
+        context['lifetime_records'] = get_top_records(context['records'])
 
-    # get unit
-    unit = "lbs"
-    if get_object_or_404(UserProfile, user=request.user).metric:
-        unit = "kg"
+        # get latest records
+        context['latest_records'] = get_latest_records(context['records'])
 
-    context = {
-        "profile": profile,
-        "own_profile": own_profile,
-        "personal_record": personal_record,
-        "records": records,
-        "lifetime_records": lifetime_records,
-        "latest_records": latest_records,
-        "unit": unit,
-        "lift_names": lift_names,
-    }
-    
-    return render(request, "profile_detail.html", context)
+        # get unit
+        if self.object.metric:
+            context['unit'] = "kg"
+        else:
+            context['unit'] = "lbs"
+
+        return context
+
 
 def get_top_records(records):
     res = []
@@ -70,3 +65,18 @@ def get_latest_records(records):
         if last_record:
             res.append(last_record)
     return res
+
+def follow_toggle(request, profile_user_id):
+    profile_user_obj = get_object_or_404(User, id=profile_user_id)
+    profile_obj = get_object_or_404(UserProfile, user=profile_user)
+    current_user_obj = get_object_or_404(UserProfile, user=request.user)
+    following = profile_obj.following.all()
+
+    if lifter_obj != current_user_obj:
+        if current_user_obj in following:
+            lifter_obj.following.remove(current_user_obj.user.id)
+        else:
+            lifter_obj.following.add(current_user_obj.user.id)
+
+    return HttpResponseRedirect(reverse(profile_detail_view, args=[profile_user_id]))
+
