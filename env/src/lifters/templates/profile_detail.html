@@ -5,7 +5,10 @@
 {% block content %}
 <body>
 <h1>{{ object.name }}</h1>
-<h2>{{object.following.count}} Following {{object.followers.count}} Followers</h2>
+<h2>
+    <a href="{% url 'profile:following' profile_id=object.id %}">{{object.following.count}} Following</a>
+    <a href="{% url 'profile:followers' profile_id=object.id %}">{{object.followers.count}} Followers</a>
+</h2>
 {% if request.user.is_authenticated and not is_own_profile %}
     {% if user_profile in object.followers.all %}
         <a href="{% url 'profile:follow-toggle' profile_id=object.id  %}" class="btn btn-primary">Unfollow</a>

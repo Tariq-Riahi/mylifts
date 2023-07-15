@@ -82,3 +82,10 @@ def follow_toggle(request, profile_id):
 
     return redirect('profile:details', pk=profile_obj.id)
 
+def followers_list(request, profile_id):
+    users = get_object_or_404(UserProfile, id=profile_id).followers.all()
+    return render(request, 'user_list.html', {'users': users})
+
+def following_list(request, profile_id):
+    users = get_object_or_404(UserProfile, id=profile_id).following.all()
+    return render(request, 'user_list.html', {'users': users})

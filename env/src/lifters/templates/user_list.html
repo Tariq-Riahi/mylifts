@@ -5,6 +5,8 @@
     <title>Title</title>
 </head>
 <body>
-    Lifter page
+{% for user in users %}
+    <a href="{{ user.get_absolute_url }}"/> {{user.name}}</a>
+{% endfor %}
 </body>
 </html>
