@@ -10,6 +10,7 @@ class Record(models.Model):
     weight_lifted = models.FloatField()
     repetitions = models.PositiveIntegerField(blank=False, null=False)
     description = models.TextField(blank=True, null=True)
+    title = models.TextField(blank=False, null=False)
     body_weight = models.PositiveIntegerField(blank=True, null=True)
     date_lifted = models.DateField()
     video_url = models.URLField(blank=True, null=True)

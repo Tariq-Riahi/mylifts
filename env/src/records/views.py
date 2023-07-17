@@ -62,6 +62,16 @@ def record_delete_view(request, record_id):
 
     return redirect("profile:details", pk=user_profile.id)
 
+def record_details_view(request, record_id):
+    record = get_object_or_404(Record, id=record_id)
+    profile = get_object_or_404(UserProfile, user=record.user)
+    context = {
+        'record': record,
+        'is_own_profile': request.user == record.user,
+        'profile': profile,
+    }
+    return render(request, 'record_details.html', context)
+
 def lbs_to_kg(lbs):
     return round(lbs / 2.205, 0)
 

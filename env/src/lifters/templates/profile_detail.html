@@ -54,6 +54,7 @@
 {% if records %}
 <table>
     <tr>
+        <th>Title</th>
         <th>Lift</th>
         <th>Weight</th>
         <th>Repetitions</th>
@@ -62,6 +63,7 @@
     </tr>
     {% for record in records %}
     <tr>
+        <td><a href="{% url 'record:details' record.id %}">{{ record.title }}</a></td>
         <td>{{ record.lift_name }}</td>
         <td>{% if own_profile.metric %} {{record.weight_lifted|div:2.205|floatformat:1 }} {% else %}
             {{record.weight_lifted}} {% endif %}

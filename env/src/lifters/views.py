@@ -21,10 +21,10 @@ class profile_detail_view(DetailView):
         context['own_profile'] = get_object_or_404(UserProfile, user=self.request.user)
 
         # get records
-        context['personal_record'] = get_object_or_404(PersonalRecord, user=self.object.user)
+        context['personal_record'] = PersonalRecord.objects.filter(user=self.object.user).first()
         context['records'] = Record.objects.filter(user=self.object.user)
 
-        # get lifetime records
+            # get lifetime records
         context['lifetime_records'] = get_top_records(context['records'])
 
         # get latest records

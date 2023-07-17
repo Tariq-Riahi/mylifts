@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% load mathfilters %}
+
+{% block content %}
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Lift</th>
+        <th>Weight</th>
+        <th>Repetitions</th>
+        <th>Body Weight</th>
+        <th>Date</th>
+    </tr>
+    <tr>
+        <td><a href="{% url 'record:details' record.id %}">{{ record.title }}</a></td>
+        <td>{{ record.description }}</td>
+        <td>{{ record.lift_name }}</td>
+        <td>{% if own_profile.metric %} {{record.weight_lifted|div:2.205|floatformat:1 }} {% else %}
+            {{record.weight_lifted}} {% endif %}
+        </td>
+        <td>{{ record.repetitions }}</td>
+        <td> {% if record.body_weight %} {{ record.body_weight }} {% else %} - {% endif %}</td>
+        <td>{{ record.date_lifted }}</td>
+        {% if is_own_profile %}
+        <td>
+            <a href="{% url 'record:edit' record.id %}">Edit</a>
+        </td>
+        <td>
+            <a href="{% url 'record:delete' record.id %}"
+               onclick="return confirm('Are you sure you want to delete this record?')">Delete</a>
+        </td>
+        {% endif %}
+    </tr>
+</table>
+<a href="{% url 'profile:details' profile.id %}" class="btn btn-primary" role="button">Back</a>
+{% endblock %}
