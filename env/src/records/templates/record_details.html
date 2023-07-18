@@ -3,6 +3,7 @@
 {% load mathfilters %}
 
 {% block content %}
+<a href="{{ profile.get_absolute_url }}"><h1>{{profile.name}}</h1></a>
 <table>
     <tr>
         <th>Title</th>
@@ -34,5 +35,6 @@
         {% endif %}
     </tr>
 </table>
-<a href="{% url 'profile:details' profile.id %}" class="btn btn-primary" role="button">Back</a>
+<!--<a href="{% url 'profile:details' profile.id %}" class="btn btn-primary" role="button">Back</a>-->
+<button onclick="history.back()" class="btn btn-primary">Go Back</button>
 {% endblock %}
