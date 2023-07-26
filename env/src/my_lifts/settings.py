@@ -43,11 +43,11 @@ INSTALLED_APPS = [
     'rest_framework',
     'API',
     'authentication',
-    'followers',
-    'notifications',
     'pages',
     'records',
     'mathfilters',
+    'feed',
+    'django_apscheduler',
 ]
 
 MIDDLEWARE = [

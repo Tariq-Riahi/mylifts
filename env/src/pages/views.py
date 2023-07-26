@@ -5,15 +5,11 @@ from django.db.models import Q
 
 from lifters.models import UserProfile
 
-from records.models import Record
+from feed.models import Feed
 
 def home_view(request):
-    user_profiles = get_object_or_404(UserProfile, user=request.user)
-    following = user_profiles.following.all()
-    users = [user_profile.user for user_profile in following]
-    print(users)
-    records = Record.objects.all().filter(user__in=users)
-    return render(request, 'home.html', {'records':records})
+    user_feed = Feed.objects.filter(user=request.user).first()
+    return render(request, 'home.html', {'user_feed':user_feed.items.all()})
 
 class search_view(ListView):
     model = UserProfile

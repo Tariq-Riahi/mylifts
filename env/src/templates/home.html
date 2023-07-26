@@ -2,16 +2,17 @@
 
 {% block content %}
 <body>
-    <h1>Home</h1>
-    {% for record in records %}
-    <div class="card" style="width: 18rem;">
-        <div class="card-body">
-            <a href="{% url 'record:details' record.id %}">
-                <h5 class="card-title">{{record.title}}</h5>
-            </a>
-            <p class="card-text">{{record.description}}</p>
-        </div>
+<h1>Home</h1>
+{{user_feed}}
+{% for post in user_feed %}
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title">{{post.title}}</h5>
+        <p class="card-text">{{post.description}}</p>
+        <a href="{{ post.recordpost.item.get_absolute_url }}" class="btn btn-primary">{{post.recordpost.item}}</a>
+        <a href="#" class="btn btn-primary">Like {{post.likes}}</a>
     </div>
-    {% endfor %}
+</div>
+{% endfor %}
 </body>
 {% endblock %}

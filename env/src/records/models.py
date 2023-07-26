@@ -1,6 +1,8 @@
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.urls import reverse
+
 
 from .choices import *
 
@@ -17,3 +19,6 @@ class Record(models.Model):
 
     def has_change_permission(self, request):
         return request.user == self.user
+
+    def get_absolute_url(self):
+        return reverse('record:details', args=[self.id])
