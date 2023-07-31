@@ -10,7 +10,7 @@
         <h5 class="card-title">{{post.title}}</h5>
         <p class="card-text">{{post.description}}</p>
         <a href="{{ post.recordpost.item.get_absolute_url }}" class="btn btn-primary">{{post.recordpost.item}}</a>
-        <a href="#" class="btn btn-primary">Like {{post.likes}}</a>
+        <a href="{% url 'feed:like' post_id=post.id %}" class="btn btn-primary">Like {{post.likes.all.count }}</a>
     </div>
 </div>
 {% endfor %}

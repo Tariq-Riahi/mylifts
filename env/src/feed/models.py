@@ -10,7 +10,7 @@ class Post(models.Model):
     title = models.TextField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     date = models.DateField()
-    likes = models.PositiveIntegerField(default=0)
+    likes = models.ManyToManyField(User)
 
 class Feed(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

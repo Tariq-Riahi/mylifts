@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'mathfilters',
     'feed',
     'django_apscheduler',
+    'main',
 ]
 
 MIDDLEWARE = [

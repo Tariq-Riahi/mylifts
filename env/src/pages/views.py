@@ -8,7 +8,10 @@ from lifters.models import UserProfile
 from feed.models import Feed
 
 def home_view(request):
-    user_feed = Feed.objects.filter(user=request.user).first()
+    if request.user.is_authenticated:
+        user_feed = Feed.objects.filter(user=request.user).first()
+    else:
+        user_feed = Feed.objects.first()
     return render(request, 'home.html', {'user_feed':user_feed.items.all()})
 
 class search_view(ListView):
