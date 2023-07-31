@@ -8,6 +8,7 @@ from datetime import date
 from .forms import RegisterForm
 
 from lifters.models import *
+from feed.models import Feed, Post
 
 def login_user(request):
     if request.method == 'POST':
@@ -39,6 +40,7 @@ def register_user(request):
             user = authenticate(username=username, password=password)
             login(request, user)
             init_user(user, form)
+            init_feed(user)
             messages.success(request, "Registration was succesful")
             return redirect('home')
     else:
@@ -55,7 +57,8 @@ def init_user(user, form):
         name=form.cleaned_data['username'],
         user=user,
         age = age,
-        metric=metric
+        metric=metric,
+        profile_picture='images/download.png'
     )
     profile_obj.save()
 
@@ -64,6 +67,15 @@ def init_user(user, form):
         user=user,
     )
     pr_obj.save()
+
+
+def init_feed(user):
+    items = Post.objects.all().order_by('likes')[:20]
+    feed = Feed.objects.create(
+        user = user
+    )
+    feed.items.set(items)
+    feed.save()
 
 def calculate_age(born):
     today = date.today()

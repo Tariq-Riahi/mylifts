@@ -19,6 +19,8 @@ from django.urls import path, include
 from lifters import views as lifters_views
 from pages import views as pages_views
 from API import views as API_views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,4 +34,4 @@ urlpatterns = [
 
     # API endpoints
     path('all-users/', API_views.UserList.as_view()),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
