@@ -21,6 +21,7 @@ from pages import views as pages_views
 from API import views as API_views
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic  import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,6 +32,7 @@ urlpatterns = [
     path('profile/', include('lifters.urls', namespace='profile')),
     path('records/', include('records.urls', namespace='record')),
     path('feed/', include('feed.urls', namespace='feed')),
+    path('test/', TemplateView.as_view(template_name='index.html')),
 
     # API endpoints
     path('all-users/', API_views.UserList.as_view()),
