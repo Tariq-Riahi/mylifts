@@ -7,10 +7,11 @@ from lifters.models import UserProfile
 
 
 class Post(models.Model):
-    title = models.TextField(blank=True, null=True)
-    description = models.TextField(blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author')
+    title = models.TextField(blank=False, null=False)
+    description = models.TextField(blank=False, null=False)
     date = models.DateField()
-    likes = models.ManyToManyField(User)
+    likes = models.ManyToManyField(User, related_name='likers')
 
 class Feed(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

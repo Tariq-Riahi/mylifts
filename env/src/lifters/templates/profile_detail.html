@@ -84,5 +84,11 @@
     {% endfor %}
 </table>
 {% endif %}
+
+<!-- Timeline -->
+<h3>Timeline</h3>
+{% if is_own_profile %}
+<a class="btn btn-success" href="{% url 'feed:add' %}">Add a Post</a>
+{% endif %}
 </body>
 {% endblock %}
