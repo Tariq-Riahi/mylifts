@@ -1,0 +1,18 @@
+body {
+    /*background: url("../images/website/i2.png") rgba(0,0,0,0.3);*/
+    background: url("../images/website/bg.jpg") rgba(0,0,0,0.3);
+    background-blend-mode: multiply;
+
+    height: 100%;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+@media (max-width: 991px) {
+    .sidebar{
+        background-color: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+    }
+}

@@ -1,13 +1,64 @@
-<nav>
-    <a href="{% url 'home' %}">Home</a>
-    {% if request.user.is_authenticated %}
-        Hello <a href="{{ user_profile.get_absolute_url }}">{{ request.user }}</a>
-        <a href="{% url 'auth:logout' %}">Logout</a>
-    {% else %}
-        <a href="{% url 'auth:login' %}">Login</a>
-        <a href="{% url 'auth:register' %}">Register</a>
-    {% endif %}
-    <form action="{% url 'search' %}" method="get">
-        <input name="q" type="text" placeholder="Search...">
-    </form>
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'navbar.css' %}"/>
+<nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
+    <div class="container">
+        <!--  Logo  -->
+        <a class="navbar-brand fs-4" href="#">My Lifts</a>
+        <!--  Toggle Btn  -->
+        <button class="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- SideBar -->
+        <div class="sidebar offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar"
+             aria-labelledby="offcanvasNavbarLabel">
+            <!-- SideBar Header -->
+            <div class="offcanvas-header text-white border-bottom">
+                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">My Lifts</h5>
+                <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+            </div>
+            <!-- SideBar Body -->
+            <div class="offcanvas-body d-flex flex-column flex-lg-row p-4 p-lg-0">
+                <ul class="navbar-nav justify-content-center align-items-center fs-5 flex-grow-1 pe-3">
+                    <form action="{% url 'search' %}" method="get" class="d-flex mt-3" role="search">
+                        <input name="q"
+                               class="text-center border-0 border-bottom shadow-none me-2 bg-transparent text-white"
+                               type="search" placeholder="Search" aria-label="Search">
+                    </form>
+                </ul>
+                <!-- Login / Sign Up -->
+                <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center gap-3">
+                    {% if request.user.is_authenticated %}
+                    <a href="{{ user_profile.get_absolute_url }}"
+                             class="text-white text-decoration-none px-3 py-1 rounded-4"
+                             style="background-color: #f94ca4;">{{ request.user|capfirst }}</a>
+                    <a href="{% url 'auth:logout' %}" class="text-white">Logout</a>
+                    {% else %}
+                    <a class="text-white" href="{% url 'auth:login' %}">Login</a>
+                    <a class="text-white text-decoration-none px-3 py-1 rounded-4"
+                       style="background-color: #f94ca4"
+                       href="{% url 'auth:register' %}">
+                        Sign Up</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
 </nav>
+
+
+<!--<nav>-->
+<!--    <a href="{% url 'home' %}">Home</a>-->
+<!--{% if request.user.is_authenticated %}-->
+<!--Hello <a href="{{ user_profile.get_absolute_url }}">{{ request.user }}</a>-->
+<!--<a href="{% url 'auth:logout' %}">Logout</a>-->
+<!--{% else %}-->
+<!--        <a href="{% url 'auth:login' %}">Login</a>-->
+<!--        <a href="{% url 'auth:register' %}">Register</a>-->
+<!--    {% endif %}-->
+<!--    <form action="{% url 'search' %}" method="get">-->
+<!--        <input name="q" type="text" placeholder="Search...">-->
+<!--    </form>-->
+<!--</nav>-->
