@@ -10,9 +10,10 @@ from feed.models import Feed
 def home_view(request):
     if request.user.is_authenticated:
         user_feed = Feed.objects.filter(user=request.user).first()
+        return render(request, 'home.html', {'user_feed':user_feed.items.all()})
     else:
-        user_feed = Feed.objects.first()
-    return render(request, 'home.html', {'user_feed':user_feed.items.all()})
+        return render(request, 'index.html', {'is_index':True})
+
 
 class search_view(ListView):
     model = UserProfile

@@ -31,7 +31,7 @@ def create_post_view(request):
         obj = form.save(commit=False)
         obj.user = request.user
         obj.date = date.today()
-        obj.likes = 0
+        # obj.likes = 0
         obj.save()
         return redirect("profile:details", pk=user_profile.id)
 

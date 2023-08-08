@@ -1,10 +1,9 @@
 {% load static %}
 
-<link rel="stylesheet" href="{% static 'navbar.css' %}"/>
 <nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
     <div class="container">
         <!--  Logo  -->
-        <a class="navbar-brand fs-4" href="#">My Lifts</a>
+        <a class="navbar-brand fs-4" href="{% url 'home' %}">My Lifts</a>
         <!--  Toggle Btn  -->
         <button class="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="offcanvas"
                 data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
@@ -22,18 +21,28 @@
             <!-- SideBar Body -->
             <div class="offcanvas-body d-flex flex-column flex-lg-row p-4 p-lg-0">
                 <ul class="navbar-nav justify-content-center align-items-center fs-5 flex-grow-1 pe-3">
-                    <form action="{% url 'search' %}" method="get" class="d-flex mt-3" role="search">
+                    {% if request.user.is_authenticated %}
+                    <form action="{% url 'search' %}" method="get" class="d-flex mt-3 nav-item mx-2" role="search">
                         <input name="q"
                                class="text-center border-0 border-bottom shadow-none me-2 bg-transparent text-white"
                                type="search" placeholder="Search" aria-label="Search">
                     </form>
+                    {% endif %}
+                    {% if not request.user.is_authenticated %}
+                    <li class="nav-item mx-2">
+                        <a href="#" class="nav-link text-white text-decoration-none px-3 py-1 rounded-4">About</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a href="#" class="nav-link text-white text-decoration-none px-3 py-1 rounded-4">Contact</a>
+                    </li>
+                    {% endif %}
                 </ul>
                 <!-- Login / Sign Up -->
                 <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center gap-3">
                     {% if request.user.is_authenticated %}
                     <a href="{{ user_profile.get_absolute_url }}"
-                             class="text-white text-decoration-none px-3 py-1 rounded-4"
-                             style="background-color: #f94ca4;">{{ request.user|capfirst }}</a>
+                       class="text-white text-decoration-none px-3 py-1 rounded-4"
+                       style="background-color: #f94ca4;">{{ request.user|capfirst }}</a>
                     <a href="{% url 'auth:logout' %}" class="text-white">Logout</a>
                     {% else %}
                     <a class="text-white" href="{% url 'auth:login' %}">Login</a>

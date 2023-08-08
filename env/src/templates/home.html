@@ -3,6 +3,7 @@
 {% block content %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'home.css' %}"/>
+{% include 'navbar.html' %}
 
 {% if request.user.is_authenticated %}
 {% for post in user_feed %}
@@ -15,11 +16,5 @@
     </div>
 </div>
 {% endfor %}
-{% else %}}
-<main>
-  <section class="w-100 vh-100 d-flex flex-column justify-content-center align-items-center text-white fs-1">
-    <h1 style="font-size: 1.5em">Take your lifts to the moon.</h1>
-  </section>
-</main>
 {% endif %}
 {% endblock %}

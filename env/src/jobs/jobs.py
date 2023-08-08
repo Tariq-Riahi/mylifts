@@ -9,7 +9,12 @@ def schedule_feed_updater():
 
     items = Post.objects.all().order_by('likes')[:20]
     for feed in feeds:
-        feed.items.set(items, clear=True)
+        user = feed.user
+        feed_items = []
+        for item in items:
+            if user != item.user:
+                feed_items.append(item)
+        feed.items.set(feed_items, clear=True)
         feed.save()
 
     print(items)

@@ -1,0 +1,81 @@
+html,body{overflow-y: scroll; }
+
+body {
+    overflow: auto;
+}
+
+section {
+    display: grid;
+    place-items: center;
+    align-content: center;
+    min-height: 100vh;
+}
+
+.sec1 {
+    /* set background */
+    background: url("../images/website/moon.jpg") rgba(0,0,0,0.3);
+    background-blend-mode: multiply;
+
+
+    /* cover entire page */
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    /* blur */
+    backdrop-filter: blur(5px);
+}
+
+.sec2 {
+    /* set background */
+    background: url("../images/website/i1.png") rgba(0,0,0,0.3);
+    background-blend-mode: multiply;
+
+
+    /* cover entire page */
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    /* blur */
+    backdrop-filter: blur(5px);
+}
+
+.sec3 {
+    /* set background */
+    background: url("../images/website/i2.png") rgba(0,0,0,0.3);
+    background-blend-mode: multiply;
+
+
+    /* cover entire page */
+    height: 100vh;
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    /* blur */
+    backdrop-filter: blur(5px);
+}
+
+/* On scroll animations */
+.hidden {
+    opacity: 0;
+    filter: blur(5px);
+    transform: translateX(-100%);
+    transition: all 1s;
+}
+
+.show {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateX(0);
+}
+
+@media (max-width: 991px) {
+    .sidebar{
+        background-color: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+    }
+}

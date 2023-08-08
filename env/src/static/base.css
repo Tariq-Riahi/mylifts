@@ -1,5 +1,4 @@
-.main {
-        /*background: url("../images/website/i2.png") rgba(0,0,0,0.3);*/
+body {
     /* set background */
     background: url("../images/website/moon.jpg") rgba(0,0,0,0.3);
     background-blend-mode: multiply;
@@ -13,11 +12,4 @@
 
     /* blur */
     backdrop-filter: blur(5px);
-}
-
-@media (max-width: 991px) {
-    .sidebar{
-        background-color: rgba(255, 255, 255, 0.15);
-        backdrop-filter: blur(10px);
-    }
 }
