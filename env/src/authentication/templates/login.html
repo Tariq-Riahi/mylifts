@@ -1,20 +1,49 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Login page</h1>
-    <p>Welcome to the login page!</p>
-
+{% load static %}
+<link rel="stylesheet" href="{% static 'login.css' %}"/>
+<div class="wrapper">
     <form action="" method="POST"> {% csrf_token %}
-        <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Username</label>
-            <input type="text" class="form-control" name="username" aria-describedby="emailHelp">
+        <h1>Login</h1>
+        <div class="input-box">
+            <input type="text" placeholder="Username" name="username" required>
+            <i class='bx bxs-user'></i>
         </div>
-        <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Password</label>
-            <input type="password" class="form-control" name="password">
+        <div class="input-box">
+            <input type="password" placeholder="Password" name="password" required>
+            <i class='bx bxs-lock-alt' ></i>
         </div>
-        <button type="submit" class="btn btn-primary">Login</button>
-        <br>
-        <a href="{% url 'auth:register' %}">Or register here</a>
+
+        <div class="remember-forgot">
+            <label><input type="checkbox">Remember me</label>
+            <a href="#">Forgot Password?</a>
+        </div>
+        <button type="submit" class="btn">Login</button>
+
+        <div class="register-link">
+            <p>
+                Don't have an account?
+                <a href="{% url 'auth:register' %}">Register here</a>
+            </p>
+        </div>
     </form>
+</div>
+
+<!--    <h1>Login page</h1>-->
+<!--    <p>Welcome to the login page!</p>-->
+
+<!--    <form action="" method="POST"> {% csrf_token %}-->
+<!--        <div class="mb-3">-->
+<!--            <label for="exampleInputEmail1" class="form-label">Username</label>-->
+<!--            <input type="text" class="form-control" style="width: 20vw" name="username" aria-describedby="emailHelp">-->
+<!--        </div>-->
+<!--        <div class="mb-3">-->
+<!--            <label for="exampleInputPassword1" class="form-label">Password</label>-->
+<!--            <input type="password" class="form-control" style="width: 20vw" name="password">-->
+<!--        </div>-->
+<!--        <button type="submit" class="btn btn-primary">Login</button>-->
+<!--        <br>-->
+<!--        <a href="{% url 'auth:register' %}">Or register here</a>-->
+<!--    </form>-->
 {% endblock %}
