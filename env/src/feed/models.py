@@ -15,7 +15,7 @@ class Post(models.Model):
 
 class Feed(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    items = models.ManyToManyField(Post)
+    items = models.ManyToManyField(Post, null=True, blank=True)
 
 class RecordPost(Post):
     item = models.ForeignKey(Record, on_delete=models.CASCADE)

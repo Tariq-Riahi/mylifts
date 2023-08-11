@@ -14,9 +14,12 @@ def login_user(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
+        remember_me = request.POST.get('remember_me',False)
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
+            if not remember_me:
+                request.session.set_expiry(0)
             return redirect('home')
         else:
             messages.error(request, "Could not log the user in. Make sure the username and password are correct.")

@@ -1,17 +1,53 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
+{% load static %}
+<link rel="stylesheet" href="{% static 'register.css' %}"/>
+<div class="wrapper">
     {% if form.errors %}
-        {% for error in form.errors %}
-            {{ error }}
-        {% endfor %}
+    {% for error in form.errors %}
+        {% if error == "password2" %}
+            <p style="color:#A00; text-align: center">Passwords don't match.</p>
+        {% else %}
+            {{ error.name }}
+        {% endif %}
+    {% endfor %}
     {% endif %}
     <h1>Register page</h1>
     <p>Fill in your information below to create an account.</p>
     <form action="{% url 'auth:register' %}" method="POST"> {% csrf_token %}
-        {{ form.as_p }}
+        {% for field in form %}
+        {% if field.name == 'metric' %}
+        <div class="form-check form-switch">
+            <label>{{ field.label }}</label>
+            {{ field }}
+        </div>
+        {% else %}
+        <div class="input-box">
+            <label>{{ field.label }}</label>
+            {{ field }}
+        </div>
+        {% endif %}
+        {% endfor %}
         <button type="submit" class="btn btn-primary">Submit</button>
+        <div style="display: flex; justify-content: space-around; margin-top: 15px;">
+            <a style="text-decoration: none" href="{% url 'home'%}">Go back</a>
+            <a style="text-decoration: none" href="{% url 'auth:login'%}">Login</a>
+        </div>
     </form>
+</div>
+
+
+<!--    {% if form.errors %}-->
+<!--        {% for error in form.errors %}-->
+<!--            {{ error }}-->
+<!--        {% endfor %}-->
+<!--    {% endif %}-->
+<!--    <h1>Register page</h1>-->
+<!--    <p>Fill in your information below to create an account.</p>-->
+<!--    <form action="{% url 'auth:register' %}" method="POST"> {% csrf_token %}-->
+<!--        {{ form }}-->
+<!--        <button type="submit" class="btn btn-primary">Submit</button>-->
+<!--    </form>-->
 
 {% endblock %}

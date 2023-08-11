@@ -5,7 +5,7 @@ from django.db.models import Q
 
 from lifters.models import UserProfile
 
-from feed.models import Feed
+from feed.models import Feed, Post
 
 def home_view(request):
     if request.user.is_authenticated:
