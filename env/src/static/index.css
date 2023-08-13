@@ -13,7 +13,7 @@ section {
 
 .sec1 {
     /* set background */
-    background: url("../images/website/moon.jpg") rgba(0,0,0,0.3);
+    background: url("../media/images/website/moon.jpg") rgba(0,0,0,0.3);
     background-blend-mode: multiply;
 
 
@@ -29,7 +29,7 @@ section {
 
 .sec2 {
     /* set background */
-    background: url("../images/website/i1.png") rgba(0,0,0,0.3);
+    background: url("../media/images/website/i1.png") rgba(0,0,0,0.3);
     background-blend-mode: multiply;
 
 
@@ -45,7 +45,7 @@ section {
 
 .sec3 {
     /* set background */
-    background: url("../images/website/i2.png") rgba(0,0,0,0.3);
+    background: url("../media/images/website/i2.png") rgba(0,0,0,0.3);
     background-blend-mode: multiply;
 
 

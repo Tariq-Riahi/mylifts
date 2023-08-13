@@ -9,7 +9,7 @@ from lifters.models import UserProfile
 @login_required
 def record_create_view(request):
     user = request.user
-    form = RecordCreateForm(request.POST or None)
+    form = RecordCreateForm(request.POST or None, request._files or None)
     user_profile = get_object_or_404(UserProfile, user=user)
     metric = user_profile.metric
 

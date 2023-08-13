@@ -16,4 +16,5 @@ class RecordCreateForm(forms.ModelForm):
             'description',
             'body_weight',
             'date_lifted',
+            'video',
         ]

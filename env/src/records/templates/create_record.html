@@ -4,7 +4,7 @@
     <h1>{% if record_id %} Edit {% else %} New {% endif %} Record</h1>
 
     <div class="mb-3">
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
             <input type="submit" value="Save" class="btn btn-primary">

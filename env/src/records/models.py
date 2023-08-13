@@ -15,7 +15,10 @@ class Record(models.Model):
     title = models.TextField(blank=False, null=False)
     body_weight = models.PositiveIntegerField(blank=True, null=True)
     date_lifted = models.DateField()
-    video_url = models.URLField(blank=True, null=True)
+    video = models.FileField(upload_to='images/videos/', null=True, verbose_name='', blank=True)
+
+    def __str__(self):
+        return self.title + '' + str(self.video)
 
     def has_change_permission(self, request):
         return request.user == self.user
