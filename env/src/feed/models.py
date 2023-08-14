@@ -1,6 +1,7 @@
 from django.db import models
 
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 from records.models import Record
 from lifters.models import UserProfile
@@ -12,6 +13,9 @@ class Post(models.Model):
     description = models.TextField(blank=False, null=False)
     date = models.DateField()
     likes = models.ManyToManyField(User, related_name='likers', default=[])
+
+    def get_absolute_url(self):
+        return reverse('feed:post-details', args=[self.id])
 
 class Feed(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

@@ -6,6 +6,7 @@ from django.views.generic.detail import DetailView
 from .models import *
 from records.models import Record
 from records.choices import lift_names
+from feed.models import Post
 
 
 def user_list(request):
@@ -36,9 +37,8 @@ class profile_detail_view(DetailView):
         else:
             context['unit'] = "lbs"
 
-        # determine whether the user follows this user
-        # if not context['own_profile']:
-        #     context['follows_user'] = context['own_profile'] in self.object.following
+        # get posts
+        context['posts'] = Post.objects.filter(user=self.request.user)
 
         return context
 

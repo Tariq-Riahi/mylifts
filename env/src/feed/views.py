@@ -40,3 +40,12 @@ def create_post_view(request):
     }
 
     return render(request, "post_create.html", context)
+
+def details_post_view(request, post_id):
+    post_obj = get_object_or_404(Post, id=post_id)
+
+    context = {
+        'post': post_obj,
+    }
+
+    return render(request, "post_detail.html", context)
