@@ -6,4 +6,4 @@ from .models import *
 admin.site.register(Feed)
 admin.site.register(Post)
 admin.site.register(RecordPost)
-admin.site.register(Comment)
+# admin.site.register(Comment)

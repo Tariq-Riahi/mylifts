@@ -1,6 +1,10 @@
 {% load static %}
 
+{% if request.user.is_authenticated%}
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color: #1e1e20">
+{% else %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
+{% endif %}
     <div class="container">
         <!--  Logo  -->
         <a class="navbar-brand fs-4" href="{% url 'home' %}">My Lifts</a>
@@ -24,7 +28,8 @@
                     {% if request.user.is_authenticated %}
                     <form action="{% url 'search' %}" method="get" class="d-flex mt-3 nav-item mx-2" role="search">
                         <input name="q"
-                               class="text-center border-0 border-bottom shadow-none me-2 bg-transparent text-white"
+                               class="text-center border-dark rounded-pill shadow-none me-2 text-white border-opacity-10"
+                               style="background-color: #171718"
                                type="search" placeholder="Search" aria-label="Search">
                     </form>
                     {% endif %}
@@ -42,12 +47,12 @@
                     {% if request.user.is_authenticated %}
                     <a href="{{ user_profile.get_absolute_url }}"
                        class="text-white text-decoration-none px-3 py-1 rounded-4"
-                       style="background-color: #f94ca4;">{{ request.user|capfirst }}</a>
+                       style="background-color: #1e6685;">{{ request.user|capfirst }}</a>
                     <a href="{% url 'auth:logout' %}" class="text-white">Logout</a>
                     {% else %}
                     <a class="text-white" href="{% url 'auth:login' %}">Login</a>
                     <a class="text-white text-decoration-none px-3 py-1 rounded-4"
-                       style="background-color: #f94ca4"
+                       style="background-color: #1e6685"
                        href="{% url 'auth:register' %}">
                         Sign Up</a>
                     {% endif %}

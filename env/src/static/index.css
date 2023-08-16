@@ -2,6 +2,12 @@ html,body{overflow-y: scroll; }
 
 body {
     overflow: auto;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
 
 section {
@@ -29,15 +35,14 @@ section {
 
 .sec2 {
     /* set background */
-    background: url("../media/images/website/i1.png") rgba(0,0,0,0.3);
+    background: url("../media/images/website/training-828741_1920.jpg") rgba(0,0,0,0.3);
     background-blend-mode: multiply;
-
 
     /* cover entire page */
     height: 100vh;
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;
+    /*background-size: cover;*/
 
     /* blur */
     backdrop-filter: blur(5px);
@@ -45,7 +50,7 @@ section {
 
 .sec3 {
     /* set background */
-    background: url("../media/images/website/i2.png") rgba(0,0,0,0.3);
+    background: url("../media/images/website/man-2264825_1920.jpg") rgba(0,0,0,0.3);
     background-blend-mode: multiply;
 
 

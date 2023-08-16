@@ -92,9 +92,9 @@
 {% if is_own_profile %}
 <a class="btn btn-success" href="{% url 'feed:add' %}">Add a Post</a>
 {% endif %}
-
+{% if posts%}
 {% for post in posts %}
-<div class="card" style="width: 50vw;">
+<div class="card" style="width: 50vw; color: black">
     <div class="card-body">
         <h5 class="card-title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h5>
         <p class="card-text">{{ post.description }}</p>
@@ -108,6 +108,9 @@
     </div>
 </div>
 {% endfor %}
+{%else%}
+<p>This user hasn't posted anything yet.</p>
+{% endif %}
 
 </body>
 {% endblock %}

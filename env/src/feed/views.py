@@ -43,9 +43,11 @@ def create_post_view(request):
 
 def details_post_view(request, post_id):
     post_obj = get_object_or_404(Post, id=post_id)
+    liked_by_user = request.user in post_obj.likes.all()
 
     context = {
         'post': post_obj,
+        'liked_by_user': liked_by_user,
     }
 
     return render(request, "post_detail.html", context)

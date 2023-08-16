@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'feed',
     'django_apscheduler',
     'main',
+    'comment.apps.CommentConfig',
 ]
 
 MIDDLEWARE = [

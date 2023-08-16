@@ -7,7 +7,7 @@ from feed.models import Feed, Post
 from lifters.models import UserProfile
 
 
-def schedule_feed_updater():
+def schedule_following_feed_updater():
     print("Starting job")
     feeds = Feed.objects.all()
 
@@ -30,7 +30,13 @@ def schedule_feed_updater():
         feed.items.set(feed_items, clear=True)
         feed.save()
 
+
+
+
+def schedule_popular_feed_updater():
     # Creating the popular feed
     popular_user = User.objects.all().filter(username="popular").first()
     popular_feed = Feed.objects.all().filter(user=popular_user).first()
     popular_feed.items.set(items_popular, clear=True)
+
+

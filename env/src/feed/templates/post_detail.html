@@ -1,6 +1,29 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'post_detail.css' %}"/>
 {% include 'navbar.html' %}
-    Post details page
+{% load comment_tags %}
+<div class="wrapper">
+    <h4>{{ post.title }}</h4>
+    <p>{{ post.description }}</p>
+    {% if post.recordpost %}
+    <div class="record">
+        <h4>{{post.recordpost.item.lift_name}}</h4>
+        <p>Weight: {{post.recordpost.item.weight_lifted}}</p>
+        <p>Repititions: {{post.recordpost.item.repetitions}}</p>
+        <p>Body weight: {{post.recordpost.item.body_weight}}</p>
+        {% if post.recordpost.item.video %}
+        <video width="500" controls>
+            <source src="{{ post.recordpost.item.video.url }}" type="video/mp4">
+        </video>
+        {% endif %}
+    </div>
+    {% endif %}
+    <a href="{% url 'feed:like' post_id=post.id %}" class="card-link" {% if liked_by_user %} style="color: red"
+       {%endif%}><i {% if liked_by_user %}class='bx bxs-heart'{%else%} class="bx bx-heart" {%endif%}></i>
+        {{post.likes.all.count }}</a>
+    {% render_comments request obj=post settings_slug='default-config' %}
+</div>
 {% endblock %}

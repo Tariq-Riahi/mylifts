@@ -3,19 +3,20 @@ html {
 }
 
 body {
-    position: absolute;
+    /*position: absolute;*/
+    /*!* set background *!*/
+    /*!*background: url("../media/images/website/moon.jpg") rgba(0, 0, 0, 0.3);*!*/
+    background: #1E1E20;
+    color: white;
+    /*background-blend-mode: multiply;*/
 
-    /* set background */
-    /*background: url("../media/images/website/moon.jpg") rgba(0, 0, 0, 0.3);*/
-    background-blend-mode: multiply;
 
+    /*!* cover entire page *!*/
+    /*height: 100%;*/
+    /*background-position: center;*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: cover;*/
 
-    /* cover entire page */
-    height: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-
-    /* blur */
-    backdrop-filter: blur(5px);
+    /*!* blur *!*/
+    /*backdrop-filter: blur(5px);*/
 }

@@ -25,7 +25,7 @@ class profile_detail_view(DetailView):
         context['personal_record'] = PersonalRecord.objects.filter(user=self.object.user).first()
         context['records'] = Record.objects.filter(user=self.object.user)
 
-            # get lifetime records
+        # get lifetime records
         context['lifetime_records'] = get_top_records(context['records'])
 
         # get latest records
@@ -38,7 +38,7 @@ class profile_detail_view(DetailView):
             context['unit'] = "lbs"
 
         # get posts
-        context['posts'] = Post.objects.filter(user=self.request.user)
+        context['posts'] = Post.objects.filter(user=self.object.user)
 
         return context
 
