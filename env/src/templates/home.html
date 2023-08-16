@@ -7,7 +7,7 @@
 
 {% if request.user.is_authenticated %}
 {% for post in user_feed %}
-<div class="card" style="width: 18rem; color: black">
+<div class="card" style="width: 18rem;">
     <div class="card-body">
         <h5 class="card-title">{{post.title}}</h5>
         <p class="card-text">{{post.description}}</p>

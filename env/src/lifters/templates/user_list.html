@@ -1,8 +1,26 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% for user in users %}
-    <a href="{{ user.get_absolute_url }}"/> {{user.name}}</a>
-{% endfor %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'user_list.css' %}"/>
+<script defer src="{% static 'user_list.js' %}"></script>
 
+<div class="user-list">
+  <h2>Users List</h2>
+  <div class="search-box">
+    <input type="text" id="user-search" placeholder="Search users...">
+  </div>
+  <div class="user-cards" id="user-cards">
+    {% for user in users %}
+    <a href="{{ user.get_absolute_url }}" class="user-card">
+      <div class="user-avatar">
+        <img src="{{ user.profile.avatar.url }}" alt="{{ user.name }} Avatar">
+      </div>
+      <div class="user-info">
+        <h3>{{ user.name }}</h3>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+</div>
 {% endblock %}
