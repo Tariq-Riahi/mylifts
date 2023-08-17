@@ -5,23 +5,25 @@
 <link rel="stylesheet" href="{% static 'index.css' %}"/>
 <script defer src="{% static 'index.js' %}"></script>
 
-<div class="sec1">
-    {% include 'navbar.html' %}
-    <main>
-        <section class="hidden w-100 vh-100 d-flex flex-column justify-content-center align-items-center text-white fs-1">
-            <h1 style="font-size: 1.5em">Take your lifts to the moon.</h1>
+<div class="page-content">
+    <div class="section sec1">
+        {% include 'navbar.html' %}
+        <main>
+            <section class="hidden">
+                <h1 class="heading">Take your lifts to the moon.</h1>
+            </section>
+        </main>
+    </div>
+    <div class="section sec2">
+        <section class="hidden">
+            <p class="sub-heading">Keep track of your records.</p>
         </section>
-    </main>
-</div>
-<div class="sec2">
-    <section class="hidden">
-        <p class="text-white fs-1">Keep track of your records.</p>
-    </section>
-</div>
-<div class="sec3" loading="eager">
-    <section class="hidden">
-        <p class="text-white fs-1">Compete with your friends.</p>
-    </section>
+    </div>
+    <div class="section sec3" loading="eager">
+        <section class="hidden">
+            <p class="sub-heading">Compete with your friends.</p>
+        </section>
+    </div>
 </div>
 
 {% endblock %}
