@@ -1,0 +1,63 @@
+/* Navigation Bar */
+.navbar {
+  transition: background-color 0.3s;
+}
+
+.navbar.dark-bg {
+  background-color: #1e1e20;
+}
+
+/* Search Bar */
+input[type="search"] {
+  background-color: #171718;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 16px;
+  width: 150px; /* Initial width */
+  transition: width 0.3s;
+}
+
+/* Animation for expanding on hover and focus */
+input[type="search"]:hover,
+input[type="search"]:focus {
+  width: 170px; /* Slightly expanded width on hover and focus */
+}
+
+input[type="search"]:focus {
+  outline: none; /* Remove outline on focus */
+  width: 230px;
+}
+
+/* Navigation Links */
+.nav-link {
+  color: #e5e5e5;
+  font-size: 14px;
+  transition: color 0.3s;
+}
+
+/* Change color for About and Contact links */
+.nav-link.about-link,
+.nav-link.contact-link {
+  color: #fff;
+}
+
+/* Change color for Login, Register, Logout, and Profile links */
+.nav-link,
+.login-link,
+.register-link,
+.logout-link,
+.profile-link {
+  color: #e5e5e5;
+  font-size: 14px;
+  transition: color 0.3s;
+  text-decoration: none; /* Remove underline */
+}
+
+.nav-link:hover,
+.login-link:hover,
+.register-link:hover,
+.logout-link:hover,
+.profile-link:hover {
+  color: #fff;
+}

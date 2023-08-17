@@ -1,78 +1,62 @@
 {% load static %}
+<link rel="stylesheet" href="{% static 'nav.css' %}"/>
+<script defer src="{% static 'nav.js' %}"></script>
 
-{% if request.user.is_authenticated%}
-<nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color: #1e1e20">
-{% else %}
-<nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
-{% endif %}
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-dark {% if request.user.is_authenticated %}sticky-top{% else %}bg-transparent{% endif %}">
     <div class="container">
-        <!--  Logo  -->
+        <!-- Logo -->
         <a class="navbar-brand fs-4" href="{% url 'home' %}">My Lifts</a>
-        <!--  Toggle Btn  -->
+
+        <!-- Toggle Button -->
         <button class="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="offcanvas"
                 data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <!-- SideBar -->
+
+        <!-- Offcanvas Sidebar -->
         <div class="sidebar offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar"
              aria-labelledby="offcanvasNavbarLabel">
-            <!-- SideBar Header -->
+            <!-- Sidebar Header -->
             <div class="offcanvas-header text-white border-bottom">
                 <h5 class="offcanvas-title" id="offcanvasNavbarLabel">My Lifts</h5>
                 <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="offcanvas"
                         aria-label="Close"></button>
             </div>
-            <!-- SideBar Body -->
+            <!-- Sidebar Body -->
             <div class="offcanvas-body d-flex flex-column flex-lg-row p-4 p-lg-0">
                 <ul class="navbar-nav justify-content-center align-items-center fs-5 flex-grow-1 pe-3">
+                    <!-- Search Form -->
                     {% if request.user.is_authenticated %}
-                    <form action="{% url 'search' %}" method="get" class="d-flex mt-3 nav-item mx-2" role="search">
+                    <form action="{% url 'search' %}" method="get" class="d-flex mt-3 mx-auto" role="search">
                         <input name="q"
                                class="text-center border-dark rounded-pill shadow-none me-2 text-white border-opacity-10"
-                               style="background-color: #171718"
                                type="search" placeholder="Search" aria-label="Search">
                     </form>
                     {% endif %}
+                    <!-- Navigation Links (If not authenticated) -->
                     {% if not request.user.is_authenticated %}
                     <li class="nav-item mx-2">
-                        <a href="#" class="nav-link text-white text-decoration-none px-3 py-1 rounded-4">About</a>
+                        <a href="#" class="nav-link text-white text-decoration-none px-3 py-1 rounded-4 about-link">About</a>
                     </li>
                     <li class="nav-item mx-2">
-                        <a href="#" class="nav-link text-white text-decoration-none px-3 py-1 rounded-4">Contact</a>
+                        <a href="#" class="nav-link text-white text-decoration-none px-3 py-1 rounded-4 contact-link">Contact</a>
                     </li>
                     {% endif %}
                 </ul>
-                <!-- Login / Sign Up -->
+
+                <!-- Login / Sign Up Section -->
                 <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center gap-3">
                     {% if request.user.is_authenticated %}
-                    <a href="{{ user_profile.get_absolute_url }}"
-                       class="text-white text-decoration-none px-3 py-1 rounded-4"
-                       style="background-color: #1e6685;">{{ request.user|capfirst }}</a>
-                    <a href="{% url 'auth:logout' %}" class="text-white">Logout</a>
+                    <a class="profile-link" href="{{ user_profile.get_absolute_url }}">{{ request.user|capfirst }}</a>
+                    <a class="logout-link" href="{% url 'auth:logout' %}">Logout</a>
                     {% else %}
-                    <a class="text-white" href="{% url 'auth:login' %}">Login</a>
-                    <a class="text-white text-decoration-none px-3 py-1 rounded-4"
-                       style="background-color: #1e6685"
-                       href="{% url 'auth:register' %}">
-                        Sign Up</a>
+                    <a class="login-link" href="{% url 'auth:login' %}">Login</a>
+                    <a class="register-link" href="{% url 'auth:register' %}">Sign Up</a>
+
                     {% endif %}
                 </div>
             </div>
         </div>
     </div>
 </nav>
-
-
-<!--<nav>-->
-<!--    <a href="{% url 'home' %}">Home</a>-->
-<!--{% if request.user.is_authenticated %}-->
-<!--Hello <a href="{{ user_profile.get_absolute_url }}">{{ request.user }}</a>-->
-<!--<a href="{% url 'auth:logout' %}">Logout</a>-->
-<!--{% else %}-->
-<!--        <a href="{% url 'auth:login' %}">Login</a>-->
-<!--        <a href="{% url 'auth:register' %}">Register</a>-->
-<!--    {% endif %}-->
-<!--    <form action="{% url 'search' %}" method="get">-->
-<!--        <input name="q" type="text" placeholder="Search...">-->
-<!--    </form>-->
-<!--</nav>-->
