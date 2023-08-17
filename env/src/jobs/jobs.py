@@ -16,7 +16,7 @@ def schedule_following_feed_updater():
 
     today = date.today()
     startdate = today - timedelta(days=1)
-    items_popular = items.filter(date__range=[startdate, today]).order_by('date')[:100]
+
     # Creating personalized feeds for the users
     for feed in feeds:
         user = feed.user
@@ -34,6 +34,9 @@ def schedule_following_feed_updater():
 
 
 def schedule_popular_feed_updater():
+    items = Post.objects.all()
+    items_popular = items.filter(date__range=[startdate, today]).order_by('date')[:100]
+
     # Creating the popular feed
     popular_user = User.objects.all().filter(username="popular").first()
     popular_feed = Feed.objects.all().filter(user=popular_user).first()

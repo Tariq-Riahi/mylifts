@@ -21,7 +21,12 @@ class search_view(ListView):
 
     def get_queryset(self):
         query = self.request.GET.get("q")
-        object_list = UserProfile.objects.filter(
+        profile_list = UserProfile.objects.filter(
             Q(name__icontains=query) | Q(bio__icontains=query)
         )
+        post_list = Post.objects.filter(
+            Q(title__icontains=query) | Q(description__icontains=query)
+        )
+
+        object_list = [profile_list, post_list]
         return object_list

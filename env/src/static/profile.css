@@ -1,0 +1,128 @@
+html,body{overflow-y: scroll; }
+
+body {
+    overflow: auto;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Container for the entire profile content */
+.profile-page {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+/* profile_styles.css */
+
+/* Base Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+}
+
+.container {
+    margin-top: 20px;
+}
+
+/* Profile Header */
+.profile-header {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile-follow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile-follow a {
+    text-decoration: none;
+    color: #333;
+}
+
+/* Profile Details */
+.profile-details h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.profile-details p {
+    color: #777;
+    line-height: 1.5;
+}
+
+.social-links {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 10px;
+}
+
+.social-links a {
+    text-decoration: none;
+    color: #333;
+    font-size: 20px;
+}
+
+/* Add Record Button */
+.add-record-btn {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Table of Records */
+.records-table {
+    max-width: 100%;
+    width: 100%;
+    table-layout: fixed; /* This ensures equal column width */
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.records-table th,
+.records-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Timeline Section */
+.timeline-card {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.timeline-card .card-body {
+    padding: 15px;
+}
+
+.card-title {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.card-text {
+    color: #555;
+    line-height: 1.4;
+}
+
+.post-video {
+    max-width: 100%;
+    height: auto;
+}

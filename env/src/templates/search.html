@@ -1,9 +1,51 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    {% for object in object_list %}
-        <li>
-            <a href="{{ object.get_absolute_url }}">{{ object.name }}</a>
-        </li>
-    {% endfor %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'search.css' %}"/>
+<script defer src="{% static 'search.js' %}"></script>
+
+{% include 'navbar.html' %}
+
+<div class="tab">
+    <div class="toggle-button">
+        <button class="toggle-btn" onclick="toggleView()">
+            <i class='bx bx-list-ul'></i>
+        </button>
+    </div>
+    <button class="tablink active" onclick="openTab(event, 'profileTab')">
+        <i class='bx bx-user'></i> Profiles
+    </button>
+    <button class="tablink" onclick="openTab(event, 'postTab')">
+        <i class='bx bx-message'></i> Posts
+    </button>
+</div>
+
+<div id="profileTab" class="tabcontent">
+    <div class="grid-container">
+        {% for profile in object_list.0 %}
+        <div class="card profile-item">
+            <img src="{{ profile.profile_image.url }}" alt="{{ profile.name }}'s Profile Image">
+            <a href="{{ profile.get_absolute_url }}">{{ profile.name }}</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div id="postTab" class="tabcontent">
+    <div class="grid-container">
+        {% for post in object_list.1 %}
+        <div class="card post-item">
+            <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+            <p class="card-description">{{ post.description }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
 {% endblock %}
+
+
+<!--{% load static %}-->
+<!--<link rel="stylesheet" href="{% static 'search.css' %}"/>-->
+<!--<script defer src="{% static 'search.js' %}"></script>-->

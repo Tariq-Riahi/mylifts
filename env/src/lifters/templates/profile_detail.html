@@ -4,113 +4,144 @@
 
 {% block content %}
 {% load static %}
+<link rel="stylesheet" href="{% static 'profile.css' %}"/>
+<script defer src="{% static 'profile.js' %}"></script>
 {% include 'navbar.html' %}
-<body>
-<h1>{{ object.name }}</h1>
-<h2>
-    <a href="{% url 'profile:following' profile_id=object.id %}">{{object.following.count}} Following</a>
-    <a href="{% url 'profile:followers' profile_id=object.id %}">{{object.followers.count}} Followers</a>
-</h2>
-{% if request.user.is_authenticated and not is_own_profile %}
-{% if user_profile in object.followers.all %}
-<a href="{% url 'profile:follow-toggle' profile_id=object.id  %}" class="btn btn-primary">Unfollow</a>
-{% else %}
-<a href="{% url 'profile:follow-toggle' profile_id=object.id  %}" class="btn btn-primary"> Follow </a>
-{% endif %}
-{% elif not is_own_profile %}
-<p> please, login to follow </p>
-{% endif %}
-<h2>
-    {% if object.age %} {{ object.age }} {% endif %}
-    {% if object.height %} / {{ object.height }} {% endif %}
-    {% if object.weight %} / {{ object.weight }} {% endif %}
-</h2>
 
-<br>
-{% if object.bio %}
-{{ object.bio }}
-{% endif %}
-</br>
-<ul>
-    {% if object.tiktok_url %}
-    <li><a href="{{ profile.tiktok_url }}">TikTok</a></li>
-    {% endif %}
-    {% if object.instagram_url %}
-    <li><a href="{{ profile.profile.instagram_url }}">Instagram</a></li>
-    {% endif %}
-    {% if object.youtube_url %}
-    <li><a href="{{ profile.youtube_url }}">Youtube</a></li>
-    {% endif %}
-</ul>
-</p>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="profile-header d-flex justify-content-between align-items-center mb-4">
+                <h1 class="mb-0">{{ object.name }}</h1>
+                <div class="profile-follow">
+                    <a href="{% url 'profile:following' profile_id=object.id %}">
+                        <i class="fa fa-users"></i> {{ object.following.count }} Following
+                    </a>
+                    <a href="{% url 'profile:followers' profile_id=object.id %}">
+                        <i class="fa fa-users"></i> {{ object.followers.count }} Followers
+                    </a>
+                    {% if request.user.is_authenticated and not is_own_profile %}
+                    {% if user_profile in object.followers.all %}
+                    <a href="{% url 'profile:follow-toggle' profile_id=object.id %}"
+                       class="btn btn-outline-primary btn-sm">Unfollow</a>
+                    {% else %}
+                    <a href="{% url 'profile:follow-toggle' profile_id=object.id %}" class="btn btn-primary btn-sm">Follow</a>
+                    {% endif %}
+                    {% elif not is_own_profile %}
+                    <p class="follow-login-msg">Please login to follow</p>
+                    {% endif %}
+                </div>
+            </div>
 
-<!--Add record-->
-{% if is_own_profile %}
-<a class="btn btn-success" href="{% url 'record:add' %}">Add a record</a>
-{% endif %}
-</br>
-</br>
+            <div class="profile-details mb-4">
+                <h2 class="mb-3">
+                    {% if object.age %} {{ object.age }} {% endif %}
+                    {% if object.height %} / {{ object.height }} {% endif %}
+                    {% if object.weight %} / {{ object.weight }} {% endif %}
+                </h2>
+                {% if object.bio %}
+                <p>{{ object.bio }}</p>
+                {% endif %}
+                <ul class="social-links list-inline">
+                    {% if object.tiktok_url %}
+                    <li class="list-inline-item"><a href="{{ object.tiktok_url }}"><i class="fa fa-tiktok"></i></a></li>
+                    {% endif %}
+                    {% if object.instagram_url %}
+                    <li class="list-inline-item"><a href="{{ object.instagram_url }}"><i
+                            class="fa fa-instagram"></i></a></li>
+                    {% endif %}
+                    {% if object.youtube_url %}
+                    <li class="list-inline-item"><a href="{{ object.youtube_url }}"><i class="fa fa-youtube"></i></a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
 
-<!--table of records-->
-<h3>All records</h3>
-{% if records %}
-<table>
-    <tr>
-        <th>Title</th>
-        <th>Lift</th>
-        <th>Weight</th>
-        <th>Repetitions</th>
-        <th>Body Weight</th>
-        <th>Date</th>
-    </tr>
-    {% for record in records %}
-    <tr>
-        <td><a href="{% url 'record:details' record.id %}">{{ record.title }}</a></td>
-        <td>{{ record.lift_name }}</td>
-        <td>{% if own_profile.metric %} {{record.weight_lifted|div:2.205|floatformat:1 }} {% else %}
-            {{record.weight_lifted}} {% endif %}
-        </td>
-        <td>{{ record.repetitions }}</td>
-        <td> {% if record.body_weight %} {{ record.body_weight }} {% else %} - {% endif %}</td>
-        <td>{{ record.date_lifted }}</td>
+            <!-- Add Record Button -->
+            {% if is_own_profile %}
+            <a class="btn btn-success mb-4" href="{% url 'record:add' %}">Add a record</a>
+            {% endif %}
+
+            <!-- Table of records -->
+            <div class="section" id="records-section">
+                <h3 class="section-heading">All records</h3>
+                {% if records %}
+                <table class="records-table">
+                    <tr>
+                        <th>Title</th>
+                        <th>Lift</th>
+                        <th>Weight</th>
+                        <th>Repetitions</th>
+                        <th>Body Weight</th>
+                        <th>Date</th>
+                        {% if is_own_profile %}
+                        <th>Edit</th>
+                        <th>Delete</th>
+                        {% endif %}
+                    </tr>
+                    {% for record in records %}
+                    <tr>
+                        <td><a href="{% url 'record:details' record.id %}">{{ record.title }}</a></td>
+                        <td>{{ record.lift_name }}</td>
+                        <td>
+                            {% if own_profile.metric %} {{record.weight_lifted|div:2.205|floatformat:1 }} {% else %}
+                            {{record.weight_lifted}} {% endif %}
+                        </td>
+                        <td>{{ record.repetitions }}</td>
+                        <td>{% if record.body_weight %} {{ record.body_weight }} {% else %} - {% endif %}</td>
+                        <td>{{ record.date_lifted }}</td>
+                        {% if is_own_profile %}
+                        <td><a href="{% url 'record:edit' record.id %}" class="edit-link">Edit</a></td>
+                        <td>
+                            <a href="{% url 'record:delete' record.id %}" class="delete-link"
+                               onclick="return confirm('Are you sure you want to delete this record?')">Delete</a>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </table>
+                {% else %}
+                <p>No records found.</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <!-- Sidebar Content -->
+        </div>
+    </div>
+
+    <!-- Timeline -->
+    <div id="timeline-section" class="section mt-4">
+        <h3 class="section-heading">Timeline</h3>
         {% if is_own_profile %}
-        <td>
-            <a href="{% url 'record:edit' record.id %}">Edit</a>
-        </td>
-        <td>
-            <a href="{% url 'record:delete' record.id %}"
-               onclick="return confirm('Are you sure you want to delete this record?')">Delete</a>
-        </td>
+        <a class="btn btn-success mb-4" href="{% url 'feed:add' %}">Add a Post</a>
         {% endif %}
-    </tr>
-    {% endfor %}
-</table>
-{% endif %}
-
-<!-- Timeline -->
-<h3>Timeline</h3>
-{% if is_own_profile %}
-<a class="btn btn-success" href="{% url 'feed:add' %}">Add a Post</a>
-{% endif %}
-{% if posts%}
-{% for post in posts %}
-<div class="card" style="width: 50vw; color: black">
-    <div class="card-body">
-        <h5 class="card-title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h5>
-        <p class="card-text">{{ post.description }}</p>
-        {% if post.recordpost and post.recordpost.item.video %}
-        <video width="500" controls>
-            <source src="{{ post.recordpost.item.video.url }}" type="video/mp4">
-        </video>
-        {% endif %}
-        <a href="{{ post.get_absolute_url }}" class="card-link"><i class='bx bx-comment'></i></a>
-        <a href="{% url 'feed:like' post_id=post.id %}" class="card-link"><i class='bx bx-heart' ></i> {{post.likes.all.count }}</a>
+        <div class="timeline">
+            {% if posts %}
+            {% for post in posts %}
+            <div class="card timeline-card">
+                <div class="card-body">
+                    <h5 class="card-title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h5>
+                    <p class="card-text">{{ post.description }}</p>
+                    {% if post.recordpost and post.recordpost.item.video %}
+                    <video class="post-video" controls>
+                        <source src="{{ post.recordpost.item.video.url }}" type="video/mp4">
+                    </video>
+                    {% endif %}
+                    <a href="{{ post.get_absolute_url }}" class="card-link comment-link"><i
+                            class='bx bx-comment'></i></a>
+                    <a href="{% url 'feed:like' post_id=post.id %}" class="card-link like-link">
+                        <i class='bx bx-heart'></i> {{ post.likes.all.count }}
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <p>This user hasn't posted anything yet.</p>
+            {% endif %}
+        </div>
     </div>
 </div>
-{% endfor %}
-{%else%}
-<p>This user hasn't posted anything yet.</p>
-{% endif %}
 
-</body>
 {% endblock %}

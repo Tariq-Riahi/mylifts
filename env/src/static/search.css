@@ -1,0 +1,143 @@
+/* Center the tab container */
+.tab {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center; /* Align items vertically */
+    margin-bottom: 20px;
+    padding-left: 20px; /* Add left padding to align with tab buttons */
+}
+
+/* Define the toggle button styles */
+.toggle-button {
+    display: flex;
+    align-items: center;
+    margin-right: 10px; /* Adjust the margin to align with tab buttons */
+}
+
+/* Define the pill-shaped tablink styles */
+.tablink {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 10px 20px;
+    transition: background-color 0.3s, color 0.3s; /* Add color transition */
+    border-radius: 20px; /* Pill shape */
+    margin: 0 10px;
+    display: flex;
+    align-items: center; /* Center the icon and text vertically */
+    color: #666; /* Default text color */
+    font-size: 16px;
+}
+
+.tablink:hover {
+    background-color: #f5f5f5;
+    color: #000; /* Change text color on hover */
+}
+
+/* Highlight the active tab */
+.tablink.active {
+    background-color: #ddd;
+    font-weight: bold; /* Increase the font weight for active tab */
+    color: #000; /* Change the text color for active tab */
+    border: 1px solid #ccc; /* Add a subtle border for active tab */
+}
+
+.tablink i {
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+/* Center the tabcontent and add more spacing */
+.tabcontent {
+    display: none;
+    text-align: center;
+    position: relative; /* Add relative positioning */
+    animation: slide-in 0.5s ease forwards; /* Initial slide-in animation */
+}
+
+/* Slide-in animation */
+@keyframes slide-in {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* Center the grid items horizontally */
+.grid-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; /* Allow items to wrap to the next line */
+    gap: 20px; /* Add spacing between cards */
+}
+
+/* Define the card styles */
+/* Define the card styles */
+.card {
+    padding: 20px;
+    background-color: #2D2D30; /* Dark gray background */
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 300px; /* Set a maximum card width */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content vertically */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease; /* Add background-color transition */
+}
+
+.card:hover {
+    background-color: #3D3D3F; /* Slightly darker gray on hover */
+    transform: translateY(-5px) scale(1.02); /* Apply translateY and scale on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Increase shadow on hover */
+}
+
+.card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 50%; /* Make the image round */
+    margin-bottom: 10px;
+}
+
+.card a {
+    color: #0070c9; /* Apple's blue link color */
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.card a:hover {
+    color: #004e99; /* Slightly darker blue on hover */
+}
+
+.card-description {
+    margin-top: 10px;
+    color: #8E8E93; /* Light gray text color */
+    text-align: center;
+}
+
+/* Define consistent styles for the toggle button */
+.toggle-btn {
+    background-color: transparent;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    cursor: pointer;
+    padding: 10px;
+    transition: background-color 0.3s;
+    display: flex;
+    align-items: center; /* Center the icon vertically */
+    color: #666; /* Default icon color */
+}
+
+.toggle-btn i {
+    font-size: 24px;
+}
+
+.toggle-btn:hover {
+    background-color: #f5f5f5;
+    color: #000; /* Change icon color on hover */
+}
